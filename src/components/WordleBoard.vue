@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const count = ref(0)
 
 const props = defineProps({
-  msg: {
+  wordOfTheDay: {
     type: String,
     default: ''
   }
@@ -12,7 +9,9 @@ const props = defineProps({
 </script>
 
 <template>
-
-  <p>{{ props.msg }}</p>
+<div>
+  <input type="text">
+  <p>You won!</p>
+</div>
 
 </template>
