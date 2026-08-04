@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import {VICTORY_MESSAGE} from "@/settings";
 const props = defineProps({
   wordOfTheDay: {
     type: String,
@@ -11,7 +12,7 @@ const props = defineProps({
 <template>
 <div>
   <input type="text">
-  <p>You won!</p>
+  <p>{{ VICTORY_MESSAGE }}</p>
 </div>
 
 </template>
