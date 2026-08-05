@@ -3,13 +3,15 @@ import {mount} from "@vue/test-utils";
 import {VICTORY_MESSAGE, DEFEAT_MESSAGE} from "@/settings";
 
 describe('WordleBoard', () => {
+    const wordOfTheDay = "TESTS"
+
     test('a victory message appears when the user makes a guess that matches the word of the day', async() => {
         // Arrange phase
-        const wrapper = mount(WordleBoard, { props: { wordOfTheDay: "TESTS" }})
+        const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
 
         // Act phase
         const guessInput = wrapper.find('input[type=text]');
-        await guessInput.setValue("TESTS");
+        await guessInput.setValue(wordOfTheDay);
         await guessInput.trigger('keydown.enter');
 
         // Assertion phase
@@ -18,7 +20,7 @@ describe('WordleBoard', () => {
 
     test('a defeat message appears when the user makes guess that is incorrect', async() => {
         // Arrange phase
-        const wrapper = mount(WordleBoard, { props: { wordOfTheDay: "TESTS" }})
+        const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
 
         // Act phase
         const guessInput = wrapper.find('input[type=text]');
