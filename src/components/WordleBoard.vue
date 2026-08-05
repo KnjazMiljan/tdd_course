@@ -6,7 +6,7 @@ defineProps({
   wordOfTheDay: {
     type: String,
     validator: (wordGiven: string) => {
-      return wordGiven.length === 5
+      return wordGiven.length === 5 && wordGiven === wordGiven.toUpperCase()
     },
   },
 })
