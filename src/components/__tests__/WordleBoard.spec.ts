@@ -1,14 +1,17 @@
 import WordleBoard from "../WordleBoard.vue";
 import {mount} from "@vue/test-utils";
-import {VICTORY_MESSAGE, DEFEAT_MESSAGE} from "@/settings";
+import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from "@/settings";
 
 describe('WordleBoard', () => {
     const wordOfTheDay = "TESTS"
+    let wrapper: ReturnType<typeof mount>;
+
+    beforeEach(() => {
+        // Arrange phase
+        wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
+    })
 
     test('a victory message appears when the user makes a guess that matches the word of the day', async() => {
-        // Arrange phase
-        const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
-
         // Act phase
         const guessInput = wrapper.find('input[type=text]');
         await guessInput.setValue(wordOfTheDay);
@@ -19,9 +22,6 @@ describe('WordleBoard', () => {
     })
 
     test('a defeat message appears when the user makes guess that is incorrect', async() => {
-        // Arrange phase
-        const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
-
         // Act phase
         const guessInput = wrapper.find('input[type=text]');
         await guessInput.setValue("WRONG");
@@ -31,9 +31,6 @@ describe('WordleBoard', () => {
         expect(wrapper.text()).toContain(DEFEAT_MESSAGE);
     });
     test('no end-of-game message appears if the user has not yed made a guess', async() => {
-        // Arrange phase
-        const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
-
         // Assertion phase
         expect(wrapper.text()).not.toContain(DEFEAT_MESSAGE);
         expect(wrapper.text()).not.toContain(VICTORY_MESSAGE);
