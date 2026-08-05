@@ -1,11 +1,13 @@
-<script setup lang="ts">
-import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings'
+<script lang="ts" setup>
+import { DEFEAT_MESSAGE, VICTORY_MESSAGE } from '@/settings'
 import { ref } from 'vue'
 
 defineProps({
   wordOfTheDay: {
     type: String,
-    default: '',
+    validator: (wordGiven: string) => {
+      return wordGiven.length === 5
+    },
   },
 })
 
@@ -16,8 +18,8 @@ const guessSubmitted = ref('')
 <template>
   <div>
     <input
-      type="text"
       v-model="guessInProgress"
+      type="text"
       @keydown.enter="guessSubmitted = guessInProgress"
     />
     <p
