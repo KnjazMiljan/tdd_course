@@ -4,6 +4,8 @@ import englishWords from '@/englishWordsWith5Letters.json'
 import { computed, ref, triggerRef } from 'vue'
 import GuessView from '@/components/GuessView.vue'
 
+withDefaults(defineProps<{ disabled?: boolean }>(), { disabled: false })
+
 const guessInProgress = ref<string | null>(null)
 const inputElement = ref<HTMLInputElement | null>(null)
 
@@ -38,6 +40,7 @@ function onSubmit() {
     <input
       ref="inputElement"
       v-model="formattedGuessInProgress"
+      :disabled="disabled"
       :maxlength="WORD_SIZE"
       autofocus
       type="text"

@@ -32,7 +32,10 @@ const isGameOver = computed(() => {
         <GuessView :guess="guess" />
       </li>
     </ul>
-    <GuessInput @guess-submitted="(guess: string) => guessesSubmitted.push(guess)" />
+    <GuessInput
+      :disabled="isGameOver"
+      @guess-submitted="(guess: string) => guessesSubmitted.push(guess)"
+    />
     <p
       v-if="isGameOver"
       class="end-of-game-message"
