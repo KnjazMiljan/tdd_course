@@ -36,7 +36,7 @@ function onSubmit() {
 
 <template>
   <div>
-    <GuessView :guess="formattedGuessInProgress" />
+    <GuessView v-if="!disabled" :guess="formattedGuessInProgress" />
     <input
       ref="inputElement"
       v-model="formattedGuessInProgress"
