@@ -1,7 +1,18 @@
 <script lang="ts" setup>
 import { WORD_SIZE } from '@/settings'
 
-withDefaults(defineProps<{ guess: string; shouldFlip?: boolean }>(), { shouldFlip: false })
+const props = defineProps<{ guess: string; answer?: string }>()
+function getFeedback(letterPosition: number): null | 'correct' | 'incorrect' | 'almost' {
+  if (!props.answer) {
+    return null
+  }
+  const letterGuessed = props.guess[letterPosition]
+  const letterExpected = props.answer[letterPosition]
+  if (!props.answer.includes(letterGuessed)) {
+    return 'incorrect'
+  }
+  return letterExpected === letterGuessed ? 'correct' : 'almost'
+}
 </script>
 
 <template>
@@ -10,9 +21,9 @@ withDefaults(defineProps<{ guess: string; shouldFlip?: boolean }>(), { shouldFli
       <li
         v-for="(letter, index) in guess.padEnd(WORD_SIZE, ' ')"
         :key="`${letter}-${index}`"
-        :class="{ 'with-flips': shouldFlip }"
+        :class="{ 'with-flips': answer }"
         :data-letter="letter"
-        :data-letter-feedback="shouldFlip ? 'correct' : null"
+        :data-letter-feedback="getFeedback(index)"
         class="letter"
         v-text="letter"
       />
@@ -47,6 +58,17 @@ ul {
 li:not([data-letter=' ']) {
   animation: pop 100ms;
 }
+
+[data-letter-feedback='correct'] {
+  --back-color: hsl(120, 25%, 65%);
+}
+[data-letter-feedback='almost'] {
+  --back-color: hsl(40, 65%, 48%);
+}
+[data-letter-feedback='incorrect'] {
+  --back-color: hsl(0, 0%, 70%);
+}
+
 $maxWordSize: 5;
 @for $i from 1 through $maxWordSize {
   .with-flips:nth-of-type(#{$i}) {
