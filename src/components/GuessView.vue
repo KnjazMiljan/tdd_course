@@ -12,6 +12,7 @@ withDefaults(defineProps<{ guess: string; shouldFlip?: boolean }>(), { shouldFli
         :key="`${letter}-${index}`"
         :class="{ 'with-flips': shouldFlip }"
         :data-letter="letter"
+        :data-letter-feedback="shouldFlip ? 'unknown' : null"
         class="letter"
         v-text="letter"
       />
