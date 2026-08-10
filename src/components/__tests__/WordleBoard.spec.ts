@@ -13,11 +13,18 @@ describe('WordleBoard', () => {
     wrapper = mount(WordleBoard, { props: { wordOfTheDay } })
   })
 
+  async function playerTypesGuess(guess: string) {
+    await wrapper.find('input[type=text]').setValue(guess)
+  }
+
+  async function playerPressingEnter() {
+    await wrapper.find('input[type=text]').trigger('keydown.enter')
+  }
+
   async function playerTypesAndSubmitsGuess(guess: string) {
     // Act phase
-    const guessInput = wrapper.find('input[type=text]')
-    await guessInput.setValue(guess)
-    await guessInput.trigger('keydown.enter')
+    await playerTypesGuess(guess)
+    await playerPressingEnter()
   }
 
   describe('End of the game messages', () => {
